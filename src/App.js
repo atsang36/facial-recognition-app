@@ -10,8 +10,10 @@ import Particles from "react-particles-js";
 const Clarifai = require("clarifai");
 require("dotenv").config();
 
+const CLARIFAI_API_KEY = process.env.REACT_APP_CLARIFAI_API_KEY;
+
 const app = new Clarifai.App({
-  apiKey: process.env.CLARIFAI_API_KEY,
+  apiKey: CLARIFAI_API_KEY,
 });
 
 const particlesOptions = {
