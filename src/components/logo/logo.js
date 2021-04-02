@@ -2,10 +2,11 @@ import React from "react";
 import Tilt from "react-tilt";
 import "./logo.css";
 import bird_logo from "./bird.png";
+import "../../App.css";
 
 const Logo = () => {
   return (
-    <div className="ma4 mt0">
+    <div className="center ma4 mt0">
       <Tilt
         className="Tilt"
         options={{ max: 55 }}
