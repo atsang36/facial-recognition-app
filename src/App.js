@@ -8,9 +8,10 @@ import FacialRecognition from "./components/facial-recognition/facial-recognitio
 import Particles from "react-particles-js";
 
 const Clarifai = require("clarifai");
+require("dotenv").config();
 
 const app = new Clarifai.App({
-  apiKey: "e1c03348dcb14a929382ec0a10407576",
+  apiKey: process.env.CLARIFAI_API_KEY,
 });
 
 const particlesOptions = {
