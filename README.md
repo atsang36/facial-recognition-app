@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Getting Started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+This project requires a free API key from Clarifai, place the key in a .env file as `REACT_APP_CLARIFAI_API_KEY=` [Your API Key]
 
 ## Available Scripts
 

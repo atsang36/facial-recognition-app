@@ -42,8 +42,30 @@ class App extends React.Component {
     this.state = {
       input: "",
       imageUrl: "",
+      box: {},
     };
   }
+
+  calculateFaceLocation = (data) => {
+    const face = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputImage");
+    const width = Number(image.width);
+    const height = Number(image.height);
+    return {
+      leftCol: face.left_col * width,
+      topRow: face.top_row * height,
+      rightCol: width - [face.right_col * width],
+      bottomRow: height - [face.bottom_row * height],
+    };
+  };
+
+  displayBox = (coordinates) => {
+    this.setState({ box: coordinates });
+  };
+
+  onInputChange = (event) => {
+    this.setState({ input: event.target.value });
+  };
 
   // Testing: https://angus-doc.readthedocs.io/en/latest/_images/aurelien.jpg
   onSubmit = async () => {
@@ -53,14 +75,10 @@ class App extends React.Component {
         Clarifai.FACE_DETECT_MODEL,
         this.state.input
       );
-      console.log(response.outputs[0].data.regions[0].region_info.bounding_box);
+      this.displayBox(this.calculateFaceLocation(response));
     } catch (err) {
       console.log(err);
     }
-  };
-
-  onInputChange = (event) => {
-    this.setState({ input: event.target.value });
   };
 
   render() {
@@ -74,7 +92,10 @@ class App extends React.Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onSubmit}
         />
-        <FacialRecognition imageUrl={this.state.imageUrl} />
+        <FacialRecognition
+          box={this.state.box}
+          imageUrl={this.state.imageUrl}
+        />
       </div>
     );
   }
