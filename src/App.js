@@ -35,7 +35,6 @@ const particlesOptions = {
       radius: 10,
     },
     url: "path/to/svg.svg",
-    isSignedIn: false,
   },
 };
 
@@ -47,8 +46,28 @@ class App extends React.Component {
       imageUrl: "",
       box: {},
       route: "signin",
+      isSignedIn: false,
+      user: {
+        id: "",
+        email: "",
+        name: "",
+        entries: 0,
+        joined: "",
+      },
     };
   }
+
+  loadUser = (input) => {
+    this.setState({
+      user: {
+        id: input.id,
+        email: input.email,
+        name: input.name,
+        entries: input.entries,
+        joined: input.joined,
+      },
+    });
+  };
 
   calculateFaceLocation = (data) => {
     const face = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -106,7 +125,10 @@ class App extends React.Component {
         {route === "home" ? (
           <div>
             <Logo />
-            <Rank />
+            <Rank
+              name={this.state.user.name}
+              entries={this.state.user.entries}
+            />
             <ImageLinkForm
               onInputChange={this.onInputChange}
               onButtonSubmit={this.onSubmit}
@@ -116,7 +138,10 @@ class App extends React.Component {
         ) : route === "signin" ? (
           <SignIn onRouteChange={this.onRouteChange} />
         ) : (
-          <Register onRouteChange={this.onRouteChange} />
+          <Register
+            loadUser={this.loadUser}
+            onRouteChange={this.onRouteChange}
+          />
         )}
       </div>
     );
