@@ -88,15 +88,18 @@ class App extends React.Component {
     let response;
     this.setState({ imageUrl: this.state.input });
     try {
-      const imageUrlResponse = await fetch("http://localhost:3000/imageurl", {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: this.state.input,
-        }),
-      }).json();
+      const imageUrlResponse = await fetch(
+        `${process.env.REACT_APP_HEROKU_URL}/imageurl`,
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: this.state.input,
+          }),
+        }
+      ).json();
       if (imageUrlResponse) {
-        response = await fetch("http://localhost:3000/image", {
+        response = await fetch(`${process.env.REACT_APP_HEROKU_URL}/image`, {
           method: "put",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
