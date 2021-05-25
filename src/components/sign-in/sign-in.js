@@ -17,6 +17,7 @@ class SignIn extends React.Component {
   };
 
   onSubmitSignIn = () => {
+    console.log(`${process.env.REACT_APP_HEROKU_URL}/signin`);
     fetch(`${process.env.REACT_APP_HEROKU_URL}/signin`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
