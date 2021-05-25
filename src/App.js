@@ -118,7 +118,7 @@ class App extends React.Component {
 
   onRouteChange = (route) => {
     if (route === "signout") {
-      this.setState({ initialState });
+      this.setState(initialState);
     } else if (route === "home") {
       this.setState({ isSignedIn: true });
     }
@@ -148,7 +148,7 @@ class App extends React.Component {
             <FacialRecognition box={box} imageUrl={imageUrl} />
           </div>
         ) : route === "signin" ? (
-          <SignIn onRouteChange={this.onRouteChange} />
+          <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
         ) : (
           <Register
             loadUser={this.loadUser}
